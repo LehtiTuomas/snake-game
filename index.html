@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Snake Game</title>
+    <meta name="description" content="The classic snake game in online version.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.png" />
+</head>
+
+<body>
+    <div id="myNav" class="overlay">
+
+        <div class="overlay-content">
+            <div id="game_end">Game</div>
+            <a href="#" id="new_game">New Game</a>
+
+
+        </div>
+    </div>
+
+
+    <div id="game-board"></div>
+    <div id="food_eaten">Points: 0</div>
+    <div id="game_controls">
+        <button id="left"><i class="material-icons" style="font-size:48px;">keyboard_arrow_left</i></button></button>
+        <div id="game_controls_midle">
+            <button id="upp"><i class="material-icons" style="font-size:48px;">keyboard_arrow_up</i></button>
+            <button id="down"><i class="material-icons" style="font-size:48px;">keyboard_arrow_down</i></button>
+        </div>
+        <button id="right"><i class="material-icons" style="font-size:48px;">keyboard_arrow_right</i></button></button>
+    </div>
+
+
+    <script src="app.js" async defer></script>
+</body>
+
+</html>

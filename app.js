@@ -93,45 +93,44 @@ function Main(currentTime) {
 
 window.requestAnimationFrame(Main);
 
+
 // Create random place for new food, so that food can't be where snake is
 function CreateFood() {
-    let deleteNumX, deleteNumY, a, b
 
-    // Arrays to generate random food place
-    let foodX = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-    let foodY = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+    let newFoodPosition
+    while (newFoodPosition == null || onSnake(newFoodPosition)) {
+        newFoodPosition = randomGridPosition()
+        let x = newFoodPosition.x
+        let y = newFoodPosition.y
 
-    // Remove all snake places from the foodX array
-    for (let i = 0; i < snakeBody.length; i++) {
-        deleteNumX = snakeBody[i].x
-        a = foodX.indexOf(deleteNumX)
-        if (a >= 0) {
-            foodX.splice(a, 1)
-        }
+        foodBody = [{ x: x, y: y }]
     }
-
-    // Remove all snake places from the foodY array
-    for (let i = 0; i < snakeBody.length; i++) {
-        deleteNumY = snakeBody[i].y
-        b = foodY.indexOf(deleteNumY)
-        if (b >= 0) {
-            foodY.splice(b, 1)
-        }
-    }
-
-    // Random place from foodX and foodY arrays where snake numbers is removed
-    let numX = Math.floor(Math.random() * foodX.length);
-    let numY = Math.floor(Math.random() * foodY.length);
-
-    let x = foodX[numX]
-    let y = foodY[numY]
-
-    foodBody = [{ x: x, y: y }]
+    return newFoodPosition
 
 }
 
 // Create first food on game start
 CreateFood()
+
+// Check if the food is where the snake is and if it is create new position
+function onSnake(position) {
+    return snakeBody.some(segment => {
+        return equalPositions(segment, position)
+    })
+}
+
+function equalPositions(pos1, pos2) {
+    return pos1.x === pos2.x && pos1.y === pos2.y
+}
+
+// Random position for food
+function randomGridPosition() {
+    return {
+        x: Math.floor(Math.random() * 21) + 1,
+        y: Math.floor(Math.random() * 21) + 1
+    }
+
+}
 
 let gameEnded = false
 
@@ -142,6 +141,7 @@ function Update() {
     if (snakeBody.length >= 3) {
         if (snakeWithoutHead.some(item => item.x === snakeBody[0].x & item.y === snakeBody[0].y)) {
             if (!gameEnded) {
+                snakeBody.push({ ...snakeBody[snakeBody.length + 1] })
                 GameOver()
                 gameEnded = true
             }
@@ -209,7 +209,13 @@ function Update() {
         snakeBody.push({ ...snakeBody[snakeBody.length - 1] })
 
         // Add speed
-        snakeSpeed = snakeSpeed + 0.25
+        if (snakeSpeed >= 1) {
+            snakeSpeed = snakeSpeed + 0.2
+        } else if (snakeSpeed >= 5 && snakeSpeed <= 8) {
+            snakeSpeed = snakeSpeed + 0.1
+        } else {
+            snakeSpeed = snakeSpeed + 0
+        }
 
         // Add point
         addPoints()

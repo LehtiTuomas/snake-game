@@ -53,7 +53,7 @@ body {
     /* MOBILE: */
 
     #game_controls {
-        width: 80vw;
+        width: 60vw;
         margin: 5vw auto;
         display: flex;
         justify-content: space-evenly;
@@ -68,11 +68,12 @@ body {
 
     #game_controls button {
         background-color: transparent;
-        height: 20vw;
-        width: 20vw;
-        font-size: 10vw;
+        height: 15vw;
+        width: 15vw;
+        font-size: 5vw;
         color: white;
         border: none;
+        margin-bottom: 5px;
     }
 
     #upp {
